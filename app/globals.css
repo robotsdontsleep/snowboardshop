@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-appBg: #06121a;
+  --color-sectionBg: #14181d;
+  --color-textColor: #f2f5f7;
+  --color-brandColor: #4fb4ec;
+  --color-panelBg: #181c22;
+  --color-controlBg: #1f242c;
+  --color-controlHover: #2a313c;
+  --color-inputBg: #0f1216;
+  --color-successPanel: #15191e;
+  --color-successIconBg: #1a222d;
+
+  --text-title: 2.5rem;
+  --text-subtitle: 2.25rem;
+  --text-cardTitle: 1.125rem;
+  --text-paragraph: 0.875rem;
+  --text-note: 0.75rem;
+}
+
+body {
+  background-color: var(--color-appBg);
+  color: var(--color-textColor);
+  font-family: Geist, Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
