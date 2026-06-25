@@ -1,7 +1,7 @@
 import "./globals.css";
 import Header from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
-import { CartProvider } from "@/components/sections/Cart/CartProvider";
+import CartStoreProvider from "@/src/store/StoreProvide";
 
 export default function RootLayout({
   children,
@@ -11,11 +11,11 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body className="bg-appBg text-textColor antialiased">
-        <CartProvider>
+        <CartStoreProvider>
           <Header />
           <main className="text-paragraph flex flex-col gap-12">{children}</main>
           <Footer />
-        </CartProvider>
+        </CartStoreProvider>
       </body>
     </html>
   );

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import Logo from "./Logo";
-import { useCart } from "@/components/sections/Cart/CartProvider";
+import { useCart } from "@/src/store/hooks";
 
 export default function Header() {
-  const { totalItems } = useCart();
+  const { itemsCount } = useCart();
 
   return (
     <div className="w-full border-b border-sectionBg/50 sticky top-0 z-50 bg-appBg/80 backdrop-blur-md mb-15">
@@ -27,7 +27,7 @@ export default function Header() {
           >
             Warenkorb
             <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brandColor px-1.5 text-[10px] font-black leading-none text-appBg">
-              {totalItems}
+              {itemsCount}
             </span>
           </Link>
         </div>
