@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+
 export default function ProductNotFound() {
   return (
     <div className="p-6 text-center text-textColor">

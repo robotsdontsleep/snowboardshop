@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Card from "../ui/Card";
 import boardImage from "@/components/sections/Hero/hero-board.png";
-import { formatPrice, Product } from "@/src/lib/mockData";
+import { formatPrice } from "@/src/lib/formatPrice";
+import { Product } from "@/src/types";
+
 
 interface ProductCardProps {
   product: Product;

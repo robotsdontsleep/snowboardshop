@@ -1,13 +1,19 @@
-"use client";
-
-import { useState } from "react";
 import ProductList from "@/components/product/ProductList";
 import Badge from "@/components/ui/Badge";
-import Button from "@/components/ui/Button";
-import CATEGORIES from "@/components/sections/Category/categories";
+import Filter from "@/components/ui/Filter";
+import { db } from "@src/db/index";
+import { products as productsTable } from "@src/db/schema";
 
-export default function Shop() {
-  const [activeFilter, setActiveFilter] = useState("All");
+export default async function Shop() {
+  const products = db.select().from(productsTable).all();
+
+  if (products.length === 0) {
+    return (
+      <p className="text-3xl font-black mb-4">
+        Aktuell sind keine Snowboards auf Lager.
+      </p>
+    );
+  }
 
   return (
     <div className="flex flex-col justify-center w-full max-w-7xl mx-auto px-4 md:px-8 py-12">
@@ -16,28 +22,10 @@ export default function Shop() {
         <h1 className="text-5xl md:text-[5rem] font-black leading-none my-6">
           Der Shop
         </h1>
-
-        <div className="flex gap-2 overflow-x-auto scrollbar-none w-full pb-2">
-          <Button
-            title="All"
-            variant={activeFilter === "All" ? "primary" : "secondary"}
-            className="px-4 py-1.5 text-sm rounded-full shrink-0"
-            onClick={() => setActiveFilter("All")}
-          />
-
-          {CATEGORIES.map((cat) => (
-            <Button
-              key={cat.title}
-              title={cat.title}
-              variant={activeFilter === cat.title ? "primary" : "secondary"}
-              className="px-4 py-1.5 text-sm rounded-full shrink-0"
-              onClick={() => setActiveFilter(cat.title)}
-            />
-          ))}
-        </div>
+        <Filter />
       </div>
 
-      <ProductList />
+      <ProductList products={products} />
     </div>
   );
 }

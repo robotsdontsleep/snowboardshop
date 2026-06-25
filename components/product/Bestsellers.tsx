@@ -2,10 +2,10 @@ import Section from "@/components/ui/Section";
 import Badge from "@/components/ui/Badge";
 import Link from "next/link";
 import ProductCard from "@/components/product/ProductCard";
-import { products } from "@/src/lib/mockData";
+import { mockProducts } from "@/src/lib/mockData";
 
 export default function Bestsellers() {
-  const bestsellers = products.slice(0, 3);
+  const bestsellers = mockProducts.slice(0, 3);
 
   return (
     <Section className="max-w-6xl">
