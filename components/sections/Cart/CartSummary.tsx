@@ -2,7 +2,7 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import InfoRow from "@/components/ui/InfoRow";
 import Link from "next/link";
-import { formatPrice } from "@/src/lib/mockData";
+import { formatPrice } from "@/src/lib/formatPrice";
 
 interface CartSummaryProps {
   totalCents: number;
