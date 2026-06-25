@@ -1,19 +1,64 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import OrderConfirmation from "@/components/Order/OrderConfirmation";
 import OrderForm from "@/components/Order/OrderForm";
 import OrderSummary from "@/components/Order/OrderSummary";
-import { useCart } from "@/components/sections/Cart/CartProvider";
+import { useCart } from "@/src/store/hooks";
 
 export default function OrderCheckout() {
-  const router = useRouter();
-  const { cart } = useCart();
+  const { clearCart, items } = useCart();
+  const [confirmedTotalCents, setConfirmedTotalCents] = useState<number | null>(
+    null,
+  );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push("/cart?status=success");
+    const formData = new FormData(event.currentTarget);
+    const totalCents = items.reduce(
+      (total, item) => total + item.price_cents * item.quantity,
+      0,
+    );
+
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        totalCents,
+        status: "confirmed",
+        createdAt: new Date().toISOString(),
+        shippingAddress: {
+          fullName: String(formData.get("fullName") ?? ""),
+          street: String(formData.get("street") ?? ""),
+          city: String(formData.get("city") ?? ""),
+          postalCode: String(formData.get("postalCode") ?? ""),
+          country: String(formData.get("country") ?? ""),
+        },
+        items: items.map((item) => ({
+          productId: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          unitPriceCents: item.price_cents,
+        })),
+      }),
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+    const order = (await response.json()) as { status: "confirmed" | "rejected" };
+
+    if (order.status === "confirmed") {
+      clearCart();
+      setConfirmedTotalCents(totalCents);
+    }
   };
+
+  if (confirmedTotalCents !== null) {
+    return <OrderConfirmation totalCents={confirmedTotalCents} />;
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 md:px-8 py-8 text-textColor">
@@ -24,7 +69,7 @@ export default function OrderCheckout() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_20rem] gap-6 items-start">
         <OrderForm onSubmit={handleSubmit} />
-        <OrderSummary order={cart} />
+        <OrderSummary order={items} />
       </div>
     </div>
   );

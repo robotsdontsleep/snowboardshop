@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 
@@ -13,25 +15,55 @@ export default function OrderForm({ onSubmit }: OrderFormProps) {
     >
       <Card className="flex flex-col gap-4 p-6 bg-panelBg">
         <h3 className="text-lg font-black">Kontakt</h3>
-        <InputField type="email" placeholder="E-Mail-Adresse" required />
+        <InputField
+          type="email"
+          name="email"
+          placeholder="E-Mail-Adresse"
+          required
+        />
       </Card>
 
       <Card className="flex flex-col gap-4 p-6 bg-panelBg">
         <h3 className="text-lg font-black">Lieferadresse</h3>
 
-        <div className="grid grid-cols-2 gap-4">
-          <InputField type="text" placeholder="Vorname" required />
-          <InputField type="text" placeholder="Nachname" required />
-        </div>
+        <InputField
+          type="text"
+          name="fullName"
+          placeholder="Vollständiger Name"
+          required
+        />
 
-        <InputField type="text" placeholder="Straße und Hausnummer" required />
+        <InputField
+          type="text"
+          name="street"
+          placeholder="Straße und Hausnummer"
+          required
+        />
 
         <div className="grid grid-cols-3 gap-4">
-          <InputField type="text" placeholder="PLZ" required />
+          <InputField
+            type="text"
+            name="postalCode"
+            placeholder="PLZ"
+            required
+          />
           <div className="col-span-2">
-            <InputField type="text" placeholder="Ort" required />
+            <InputField
+              type="text"
+              name="city"
+              placeholder="Ort"
+              required
+            />
           </div>
         </div>
+
+        <InputField
+          type="text"
+          name="country"
+          placeholder="Land"
+          defaultValue="Germany"
+          required
+        />
       </Card>
 
       <Card className="flex flex-col gap-4 p-6 bg-panelBg">

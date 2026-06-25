@@ -1,7 +1,9 @@
 import Card from "@/components/ui/Card";
 import InfoRow from "@/components/ui/InfoRow";
 import Link from "next/link";
-import { CartItem, formatPrice } from "@/src/lib/mockData";
+import { formatPrice } from "@/src/lib/formatPrice";
+import type { CartItem } from "@/src/types";
+
 
 interface OrderSummaryProps {
   order: CartItem[];

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatPrice, mockOrder } from "@/src/lib/mockData";
+import { formatPrice } from "@/src/lib/formatPrice";
 
 interface OrderConfirmationProps {
   totalCents: number;
@@ -37,14 +37,9 @@ export default function OrderConfirmation({
       </p>
 
       <div className="bg-successPanel border border-textColor/5 px-5 py-3 rounded-xl text-xs font-medium mb-8 tracking-wide">
-        <span className="text-textColor/40">Bestellnummer </span>
-        <span className="text-brandColor font-bold">NK-{mockOrder.id}</span>
-      </div>
-
-      <div className="bg-successPanel border border-textColor/5 px-5 py-3 rounded-xl text-xs font-medium mb-8 tracking-wide">
         <span className="text-textColor/40">Gesamt </span>
         <span className="text-brandColor font-bold">
-          {formatPrice(totalCents || mockOrder.total_cents)}
+          {formatPrice(totalCents)}
         </span>
       </div>
 
