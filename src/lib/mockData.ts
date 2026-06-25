@@ -1,38 +1,13 @@
-export interface Product {
-  id: number;
-  name: string;
-  brand: string;
-  length_cm: number;
-  price_cents: number;
-}
+import { Order, OrderItem, Product } from "../types";
 
-export interface OrderItem {
-  id: number;
-  order_id: number;
-  product_id: number;
-  quantity: number;
-  unit_price_cents: number;
-}
-
-export interface Order {
-  id: number;
-  total_cents: number;
-  status: "confirmed";
-  created_at: string;
-  items: OrderItem[];
-}
-
-export type CartItem = Product & {
-  quantity: number;
-};
-
-export const products: Product[] = [
+export const mockProducts: Product[] = [
   {
     id: 1,
     name: "Custom X",
     brand: "Burton",
     length_cm: 156,
     price_cents: 69900,
+    stock: 10,
   },
   {
     id: 2,
@@ -40,6 +15,7 @@ export const products: Product[] = [
     brand: "Nitro",
     length_cm: 159,
     price_cents: 57900,
+    stock: 8,
   },
   {
     id: 3,
@@ -47,6 +23,7 @@ export const products: Product[] = [
     brand: "Jones",
     length_cm: 157,
     price_cents: 62900,
+    stock: 12,
   },
   {
     id: 4,
@@ -54,6 +31,7 @@ export const products: Product[] = [
     brand: "Lib Tech",
     length_cm: 161,
     price_cents: 64900,
+    stock: 5,
   },
   {
     id: 5,
@@ -61,6 +39,7 @@ export const products: Product[] = [
     brand: "Burton",
     length_cm: 160,
     price_cents: 59900,
+    stock: 7,
   },
   {
     id: 6,
@@ -68,6 +47,7 @@ export const products: Product[] = [
     brand: "Nitro",
     length_cm: 163,
     price_cents: 54900,
+    stock: 9,
   },
   {
     id: 7,
@@ -75,6 +55,7 @@ export const products: Product[] = [
     brand: "Jones",
     length_cm: 162,
     price_cents: 72900,
+    stock: 4,
   },
   {
     id: 8,
@@ -82,6 +63,7 @@ export const products: Product[] = [
     brand: "Lib Tech",
     length_cm: 156,
     price_cents: 52900,
+    stock: 15,
   },
   {
     id: 9,
@@ -89,23 +71,24 @@ export const products: Product[] = [
     brand: "Burton",
     length_cm: 157,
     price_cents: 58900,
+    stock: 6,
   },
 ];
 
-const mockOrderItems: OrderItem[] = [
+export const mockOrderItems: OrderItem[] = [
   {
     id: 1,
     order_id: 482913,
-    product_id: products[0].id,
+    product_id: mockProducts[0].id,
     quantity: 1,
-    unit_price_cents: products[0].price_cents,
+    unit_price_cents: mockProducts[0].price_cents,
   },
   {
     id: 2,
     order_id: 482913,
-    product_id: products[2].id,
+    product_id: mockProducts[2].id,
     quantity: 1,
-    unit_price_cents: products[2].price_cents,
+    unit_price_cents: mockProducts[2].price_cents,
   },
 ];
 
@@ -117,9 +100,4 @@ export const mockOrder: Order = {
   ),
   status: "confirmed",
   created_at: "2026-06-25T12:00:00.000Z",
-  items: mockOrderItems,
 };
-
-export function formatPrice(priceCents: number): string {
-  return `${(priceCents / 100).toFixed(2)} €`;
-}
